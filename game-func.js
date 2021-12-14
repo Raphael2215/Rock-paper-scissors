@@ -1,61 +1,94 @@
+const optionBtn = document.querySelectorAll('div.optionBtn button');
+const roundResults = document.querySelector('#roundResults');
+const playerPoints = document.querySelector('#playerScore');
+const computerPoints = document.querySelector('#computerScore');
+const resetBtn = document.querySelector('#reset');
+
+// Start the game after user clicks button
+
+
+//refresh page for new game
+resetBtn.addEventListener('click',() => location.reload());
+
+optionBtn.forEach(button => { button.addEventListener('click', getPlayerChoice) });
+let playerChoice;
+let playerScore = 0;
+let computerScore = 0;
+// Fuction to generate  a random for computer
 function computerPlay(){
     const computerOptions =['rock', 'paper', 'scissors'];
-    const choiceNumber = Math.floor(Math.random()*3);
+    const choiceNumber = Math.floor(Math.random()*computerOptions.length);
     const computerChoice = computerOptions[choiceNumber];
     return computerChoice;
-    
 }
+
+
+// Function to play one round
+const computerSelection = computerPlay();
 function playRound(playerSelection, computerSelection){   
-    let result;
-    let result1;
+    
     if(playerSelection === computerSelection){
-        result = 'Tie';
-        let result1 = 0;
+        roundResults.textContent = "Tie! Both chose " + playerSelection;
+        
     }
     else if(playerSelection == 'rock'){
         if(computerSelection == 'paper'){
-            result = 'You Lose! Paper beats Rock';
-            let result1 = 2;
+            computerPoints.textContent = ++computerScore;
+            roundResults.textContent = "You lose! " +computerSelection+ " beats " +playerSelection;
+            
         }
         else{
-            result = 'You won';
-            let result1 = 1;
+            playerPoints.textContent = ++playerScore;
+            roundResults.textContent = "You win! "+playerSelection +" beats " +computerSelection;
+            
         }
     }
     else if(playerSelection == 'scissors'){
         if(computerSelection == 'rock'){
-            result = 'You Lose! Rock beats Scissors';
-            let result1 = 2;
+            computerPoints.textContent = ++computerScore;
+            roundResults.textContent = "You lose! " +computerSelection+ " beats " +playerSelection;
+            
         }
         else{
-            result = 'You won';
-            let result1 = 1;
+            playerPoints.textContent = ++playerScore;
+            roundResults.textContent = "You win! "+playerSelection +" beats " +computerSelection;
+            
         }
     }
     else if(playerSelection == 'paper'){
         if(computerSelection == 'scissors'){
-            result = 'You Lose! Scissors beat Paper';
-            let result1 = 2;
+            computerPoints.textContent = ++computerScore;
+            roundResults.textContent = "You lose! " +computerSelection+ " beats " +playerSelection;
+            
         }
         else{
-            result = 'You won';
-            let result1 = 1;
+            playerPoints.textContent = ++playerScore;
+            roundResults.textContent = "You win! "+playerSelection +" beats " +computerSelection;
+            
         }
     }
-    return(result);
-}
-function playerChoice(){
-    let pchoice = prompt("Choose Rock/Paper/Scissors");
-    pchoice = pchoice.toLowerCase();
-    return pchoice;
+    checkWinner();
 }
 
-const computerSelection = computerPlay();
-function game(){
-    for (let i =0; i < 5; i++){
-        let playerSelection = playerChoice();
-        console.log(playRound(playerSelection, computerSelection));
+
+
+function checkWinner() {
+    if (computerScore === 5 || playerScore === 5) {
+      if (computerScore === playerScore){
+        roundResults.textContent = "The game is a Tie!"
+      }else{
+        roundResults.textContent = (computerScore > playerScore) ? 'You lost to a computer' : 'Congrats! You won!!';
+        
+      }
+      optionBtn.forEach(button => {
+        button.removeEventListener('click', getPlayerChoice);
+      });
     }
-
+  }
+  // Function to get player
+function getPlayerChoice(e){  
+    let playerSelection= (e.target.id);
+    playerChoice = e.target.textContent;
+    console.log(playerChoice);   
+    playRound(playerSelection, computerPlay());    
 }
-console.log(game());

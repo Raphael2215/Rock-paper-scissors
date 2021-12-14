@@ -4,10 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
+    <link rel= "stylesheet" href = "style.css">
 </head>
 <body>
-    <script src="game-func.js"></script>
+    <div class="flex">
+        <h1>Rock Paper Scissors</h1>
+        <h3>First To 5 Wins!</h3>
+        <div class="optionBtn">
+            <button id="rock">Rock</button>
+            <button id="paper">Paper</button>
+            <button id="scissors">Scissors</button>
+        </div>
+        <div class="labels">
+            <span id="playerLabel">Player scores</span>
+            <span id="compLabel">Computer scores</span>
+        </div>
+          
+      
+        <div class="scores">
+            <div id="playerScore"></div>
+            <div id="computerScore"></div>
+        </div>
+        <div><span id="resultsLabel">Results</label></div>
+        <div id="roundResults"></div>
+
+        <div>
+        <button id="reset">Refresh</button>
+        </div>
+
+    </div>    
+    
     
 </body>
+<script src="game-func.js"></script>
 </html>
